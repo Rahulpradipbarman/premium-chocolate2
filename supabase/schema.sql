@@ -18,4 +18,3 @@ CREATE TABLE public.email_subscribers (
 ALTER TABLE public.users DISABLE ROW LEVEL SECURITY;
 ALTER TABLE public.email_subscribers DISABLE ROW LEVEL SECURITY;
 
-ALTER TABLE public.users ADD COLUMN cart JSONB DEFAULT '[]'::jsonb;
