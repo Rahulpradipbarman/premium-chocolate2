@@ -21,13 +21,25 @@ const Navigation = () => {
   return (
     <header>
       <div className="container nav">
-        <Link to="/" style={{ fontSize: '1.5rem', fontWeight: 'bold', color: 'var(--color-primary)' }}>
-          Noir Luxe
-        </Link>
-        <div className="nav-links">
+        <div className="nav-left">
+          <Link to="/" style={{ 
+            fontSize: '1.4rem', 
+            fontWeight: '600', 
+            color: 'var(--color-primary)', 
+            letterSpacing: '0.2em',
+            fontFamily: 'var(--font-heading)' 
+          }}>
+            NOIR LUXE
+          </Link>
+        </div>
+        
+        <div className="nav-center">
           <Link to="/">Home</Link>
           <Link to="/shop">Shop</Link>
           <Link to="/articles">Articles</Link>
+        </div>
+
+        <div className="nav-right">
           <ThemeToggle />
           
           <button className="icon-btn" style={{ position: 'relative', margin: '0 10px' }} onClick={() => setIsCartOpen(true)} aria-label="Cart">
@@ -38,12 +50,12 @@ const Navigation = () => {
           {isLoggedIn ? (
             <>
               <Link to="/dashboard">Dashboard</Link>
-              <button onClick={logout} className="btn btn-secondary" style={{ padding: '4px 12px' }}>Logout</button>
+              <button onClick={logout} className="btn btn-secondary btn-sm" style={{ padding: '4px 12px' }}>Logout</button>
             </>
           ) : (
             <>
               <Link to="/login">Login</Link>
-              <Link to="/signup" className="btn">Sign Up</Link>
+              <Link to="/signup" className="btn btn-sm">Sign Up</Link>
             </>
           )}
         </div>

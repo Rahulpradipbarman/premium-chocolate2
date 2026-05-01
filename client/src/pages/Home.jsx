@@ -94,7 +94,7 @@ const Home = () => {
         <section className="craftsmanship" style={{ padding: 'var(--space-8) 0' }}>
           <div className="container" style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-6)', flexWrap: 'wrap' }}>
             <div style={{ flex: '1 1 400px' }}>
-              <img src="/images/craftsmanship.png" alt="Master Chocolatier" style={{ width: '100%', borderRadius: '4px', boxShadow: '0 20px 40px rgba(0,0,0,0.4)' }} loading="lazy" />
+              <img src="/images/craftsmanship.png" alt="Master Chocolatier" style={{ width: '100%', borderRadius: '8px', boxShadow: '0 20px 40px rgba(0,0,0,0.4)' }} loading="lazy" />
             </div>
             <div style={{ flex: '1 1 400px' }}>
               <h2 style={{ fontSize: '3rem', marginBottom: 'var(--space-3)', color: 'var(--color-primary)' }}>The Art of Craftsmanship</h2>
@@ -111,21 +111,21 @@ const Home = () => {
           <div className="container" style={{ textAlign: 'center' }}>
             <h2 style={{ fontSize: '2.5rem', marginBottom: 'var(--space-6)', color: '#d4af37' }}>The Velour Standard</h2>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: 'var(--space-4)' }}>
-               <div style={{ padding: 'var(--space-4)', background: '#ffffff', borderRadius: '4px', boxShadow: '0 4px 15px rgba(0,0,0,0.05)' }}>
+               <div style={{ padding: 'var(--space-4)', background: '#ffffff', borderRadius: '8px', boxShadow: '0 4px 15px rgba(0,0,0,0.05)' }}>
                  <div style={{ margin: '0 auto var(--space-3)', width: '60px', height: '60px', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#f5ecd7', borderRadius: '50%', color: '#d4af37' }}>
                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
                  </div>
                  <h3 style={{ marginBottom: 'var(--space-2)' }}>Ethical Sourcing</h3>
                  <p style={{ fontSize: '0.95rem', opacity: 0.8 }}>We pay a premium to farmers, ensuring sustainable practices and exceptional bean quality.</p>
                </div>
-               <div style={{ padding: 'var(--space-4)', background: '#ffffff', borderRadius: '4px', boxShadow: '0 4px 15px rgba(0,0,0,0.05)' }}>
+               <div style={{ padding: 'var(--space-4)', background: '#ffffff', borderRadius: '8px', boxShadow: '0 4px 15px rgba(0,0,0,0.05)' }}>
                  <div style={{ margin: '0 auto var(--space-3)', width: '60px', height: '60px', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#f5ecd7', borderRadius: '50%', color: '#d4af37' }}>
                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
                  </div>
                  <h3 style={{ marginBottom: 'var(--space-2)' }}>Masterful Conching</h3>
                  <p style={{ fontSize: '0.95rem', opacity: 0.8 }}>Extended conching times create our signature velvet-smooth texture that melts on the palate.</p>
                </div>
-               <div style={{ padding: 'var(--space-4)', background: '#ffffff', borderRadius: '4px', boxShadow: '0 4px 15px rgba(0,0,0,0.05)' }}>
+               <div style={{ padding: 'var(--space-4)', background: '#ffffff', borderRadius: '8px', boxShadow: '0 4px 15px rgba(0,0,0,0.05)' }}>
                  <div style={{ margin: '0 auto var(--space-3)', width: '60px', height: '60px', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#f5ecd7', borderRadius: '50%', color: '#d4af37' }}>
                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
                  </div>
@@ -140,21 +140,49 @@ const Home = () => {
         <section className="reviews container" style={{ padding: 'var(--space-8) var(--space-3)', textAlign: 'center' }}>
           <h2 style={{ fontSize: '2.5rem', marginBottom: 'var(--space-6)', color: 'var(--color-primary)' }}>What They Say</h2>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 'var(--space-4)' }}>
-            <div style={{ padding: 'var(--space-4)', border: '1px solid var(--color-border)', borderRadius: '4px', background: 'var(--color-surface)' }}>
-              <div style={{ color: 'var(--color-primary)', marginBottom: 'var(--space-2)' }}>★★★★★</div>
-              <p style={{ fontStyle: 'italic', marginBottom: 'var(--space-3)', color: 'var(--color-text)', opacity: 0.9 }}>"The most profound chocolate experience I've ever had. The Madagascar single origin is a revelation."</p>
-              <h4 style={{ fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '0.1em' }}>- Vogue Gastronomy</h4>
+            
+            <div className="review-card" style={{ padding: '2.5rem var(--space-4)', border: '1px solid var(--color-border)', borderRadius: '8px', background: 'var(--color-surface)', position: 'relative' }}>
+              <div className="reviewer-img-container" style={{ position: 'absolute', top: '-40px', left: '50%', transform: 'translateX(-50%)', width: '80px', height: '80px', borderRadius: '50%', border: '4px solid var(--color-bg)', overflow: 'hidden', boxShadow: '0 4px 15px rgba(0,0,0,0.1)' }}>
+                <img src="/images/reviewer_1.png" alt="Julian Vane" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              </div>
+              <div style={{ marginTop: '1.5rem' }}>
+                <div style={{ color: 'var(--color-primary)', marginBottom: 'var(--space-2)' }}>★★★★★</div>
+                <p style={{ fontStyle: 'italic', marginBottom: 'var(--space-3)', color: 'var(--color-text)', opacity: 0.9, fontSize: '1rem' }}>
+                  "The most profound chocolate experience I've ever had. The Madagascar single origin is a revelation of complex flavor."
+                </p>
+                <h4 style={{ fontSize: '1rem', fontWeight: '700', marginBottom: '2px' }}>Julian Vane</h4>
+                <p style={{ fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.6 }}>Gastronomy Critic</p>
+              </div>
             </div>
-            <div style={{ padding: 'var(--space-4)', border: '1px solid var(--color-border)', borderRadius: '4px', background: 'var(--color-surface)' }}>
-              <div style={{ color: 'var(--color-primary)', marginBottom: 'var(--space-2)' }}>★★★★★</div>
-              <p style={{ fontStyle: 'italic', marginBottom: 'var(--space-3)', color: 'var(--color-text)', opacity: 0.9 }}>"Noir Luxe has redefined the luxury chocolate standard. Their salted caramel ganache is an absolute masterpiece."</p>
-              <h4 style={{ fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '0.1em' }}>- The Artisan Journal</h4>
+
+            <div className="review-card" style={{ padding: '2.5rem var(--space-4)', border: '1px solid var(--color-border)', borderRadius: '8px', background: 'var(--color-surface)', position: 'relative' }}>
+              <div className="reviewer-img-container" style={{ position: 'absolute', top: '-40px', left: '50%', transform: 'translateX(-50%)', width: '80px', height: '80px', borderRadius: '50%', border: '4px solid var(--color-bg)', overflow: 'hidden', boxShadow: '0 4px 15px rgba(0,0,0,0.1)' }}>
+                <img src="/images/reviewer_2.png" alt="Elena Moretti" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              </div>
+              <div style={{ marginTop: '1.5rem' }}>
+                <div style={{ color: 'var(--color-primary)', marginBottom: 'var(--space-2)' }}>★★★★★</div>
+                <p style={{ fontStyle: 'italic', marginBottom: 'var(--space-3)', color: 'var(--color-text)', opacity: 0.9, fontSize: '1rem' }}>
+                  "Noir Luxe has redefined the luxury chocolate standard. Their salted caramel ganache is an absolute masterpiece of texture."
+                </p>
+                <h4 style={{ fontSize: '1rem', fontWeight: '700', marginBottom: '2px' }}>Elena Moretti</h4>
+                <p style={{ fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.6 }}>Lifestyle Influencer</p>
+              </div>
             </div>
-            <div style={{ padding: 'var(--space-4)', border: '1px solid var(--color-border)', borderRadius: '4px', background: 'var(--color-surface)' }}>
-              <div style={{ color: 'var(--color-primary)', marginBottom: 'var(--space-2)' }}>★★★★★</div>
-              <p style={{ fontStyle: 'italic', marginBottom: 'var(--space-3)', color: 'var(--color-text)', opacity: 0.9 }}>"A masterclass in restraint and quality. The perfect gift for the true chocolate connoisseur."</p>
-              <h4 style={{ fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '0.1em' }}>- Culinary Elite</h4>
+
+            <div className="review-card" style={{ padding: '2.5rem var(--space-4)', border: '1px solid var(--color-border)', borderRadius: '8px', background: 'var(--color-surface)', position: 'relative' }}>
+              <div className="reviewer-img-container" style={{ position: 'absolute', top: '-40px', left: '50%', transform: 'translateX(-50%)', width: '80px', height: '80px', borderRadius: '50%', border: '4px solid var(--color-bg)', overflow: 'hidden', boxShadow: '0 4px 15px rgba(0,0,0,0.1)' }}>
+                <img src="/images/reviewer_3.png" alt="Nano Banana" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              </div>
+              <div style={{ marginTop: '1.5rem' }}>
+                <div style={{ color: 'var(--color-primary)', marginBottom: 'var(--space-2)' }}>★★★★★</div>
+                <p style={{ fontStyle: 'italic', marginBottom: 'var(--space-3)', color: 'var(--color-text)', opacity: 0.9, fontSize: '1rem' }}>
+                  "A masterclass in restraint and quality. The perfect gift for the true chocolate connoisseur who appreciates the finer details."
+                </p>
+                <h4 style={{ fontSize: '1rem', fontWeight: '700', marginBottom: '2px' }}>Nano Banana</h4>
+                <p style={{ fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.6 }}>Artisan Specialist</p>
+              </div>
             </div>
+
           </div>
         </section>
 
@@ -170,21 +198,21 @@ const Home = () => {
             </div>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 'var(--space-4)' }}>
               <Link to="/articles" className="recipe-card" style={{ display: 'block', textDecoration: 'none', color: 'inherit', group: 'true' }}>
-                <div style={{ overflow: 'hidden', borderRadius: '4px', marginBottom: 'var(--space-3)', aspectRatio: '4/3' }}>
+                <div style={{ overflow: 'hidden', borderRadius: '8px', marginBottom: 'var(--space-3)', aspectRatio: '4/3' }}>
                   <img src="/images/hazelnut_velvet.png" alt="Dark Chocolate Fondant" style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.5s ease' }} onMouseOver={(e) => e.target.style.transform = 'scale(1.05)'} onMouseOut={(e) => e.target.style.transform = 'scale(1)'} />
                 </div>
                 <h3 style={{ fontSize: '1.25rem', marginBottom: 'var(--space-1)' }}>Classic Dark Chocolate Fondant</h3>
                 <p style={{ fontSize: '0.9rem', opacity: 0.7 }}>A molten core of 85% Noir Luxe, perfect for dinner parties.</p>
               </Link>
               <Link to="/articles" className="recipe-card" style={{ display: 'block', textDecoration: 'none', color: 'inherit', group: 'true' }}>
-                <div style={{ overflow: 'hidden', borderRadius: '4px', marginBottom: 'var(--space-3)', aspectRatio: '4/3' }}>
+                <div style={{ overflow: 'hidden', borderRadius: '8px', marginBottom: 'var(--space-3)', aspectRatio: '4/3' }}>
                   <img src="/images/salted_caramel.png" alt="Chocolate Tart" style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.5s ease' }} onMouseOver={(e) => e.target.style.transform = 'scale(1.05)'} onMouseOut={(e) => e.target.style.transform = 'scale(1)'} />
                 </div>
                 <h3 style={{ fontSize: '1.25rem', marginBottom: 'var(--space-1)' }}>Sea Salt Caramel Tart</h3>
                 <p style={{ fontSize: '0.9rem', opacity: 0.7 }}>A buttery crust filled with rich ganache and flaky sea salt.</p>
               </Link>
               <Link to="/articles" className="recipe-card" style={{ display: 'block', textDecoration: 'none', color: 'inherit', group: 'true' }}>
-                <div style={{ overflow: 'hidden', borderRadius: '4px', marginBottom: 'var(--space-3)', aspectRatio: '4/3' }}>
+                <div style={{ overflow: 'hidden', borderRadius: '8px', marginBottom: 'var(--space-3)', aspectRatio: '4/3' }}>
                   <img src="/images/gold_leaf.png" alt="Truffles" style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.5s ease' }} onMouseOver={(e) => e.target.style.transform = 'scale(1.05)'} onMouseOut={(e) => e.target.style.transform = 'scale(1)'} />
                 </div>
                 <h3 style={{ fontSize: '1.25rem', marginBottom: 'var(--space-1)' }}>Hand-Rolled Cocoa Truffles</h3>
