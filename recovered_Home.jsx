@@ -1,0 +1,2 @@
+"import React, { useRef, useEffect, useState } from 'react';\nimport { Link } from 'react-router-dom';\n\nconst Home = () => {\n  const canvasRef = useRef(null);\n  const [images, setImages] = useState([]);\n  const frameCount = 80;\n\n  useEffect(() => {\
+<truncated 6540 bytes>
