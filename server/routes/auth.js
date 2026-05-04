@@ -86,14 +86,14 @@ router.post('/login', async (req, res) => {
 
     // Generate JWT
     const token = jwt.sign(
-      { id: user.id, email: user.email, fullName: user.full_name },
+      { id: user.id, email: user.email, fullName: user.full_name, role: user.role },
       JWT_SECRET,
       { expiresIn: '7d' }
     );
 
     res.json({
       token,
-      user: { id: user.id, fullName: user.full_name, email: user.email, cart: user.cart || [] }
+      user: { id: user.id, fullName: user.full_name, email: user.email, role: user.role, cart: user.cart || [] }
     });
   } catch (error) {
     console.error('Login error:', error);

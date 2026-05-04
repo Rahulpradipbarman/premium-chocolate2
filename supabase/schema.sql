@@ -5,7 +5,8 @@ CREATE TABLE public.users (
   password_hash TEXT NOT NULL,
   created_at TIMESTAMPTZ DEFAULT NOW(),
   is_subscribed BOOLEAN DEFAULT FALSE,
-  cart JSONB DEFAULT '[]'::jsonb
+  cart JSONB DEFAULT '[]'::jsonb,
+  role TEXT DEFAULT 'customer'
 );
 
 CREATE TABLE public.email_subscribers (
@@ -18,3 +19,14 @@ CREATE TABLE public.email_subscribers (
 ALTER TABLE public.users DISABLE ROW LEVEL SECURITY;
 ALTER TABLE public.email_subscribers DISABLE ROW LEVEL SECURITY;
 
+CREATE TABLE public.products (
+  id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+  name TEXT NOT NULL,
+  description TEXT,
+  price DECIMAL(10, 2) NOT NULL,
+  image_url TEXT,
+  stock INTEGER DEFAULT 0,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+ALTER TABLE public.products DISABLE ROW LEVEL SECURITY;
