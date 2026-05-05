@@ -1,9 +1,13 @@
 const express = require('express');
+const multer = require('multer');
 const supabase = require('../lib/supabase');
 const verifyToken = require('../middleware/verifyToken');
 const verifyAdmin = require('../middleware/verifyAdmin');
 
 const router = express.Router();
+
+// Set up multer for memory storage (file buffer)
+const upload = multer({ storage: multer.memoryStorage() });
 
 // GET all products
 router.get('/', async (req, res) => {
@@ -36,6 +40,38 @@ router.get('/:id', async (req, res) => {
   } catch (error) {
     console.error('Error fetching product:', error);
     res.status(500).json({ message: 'Error fetching product' });
+  }
+});
+
+// POST upload image (Admin only)
+router.post('/upload', verifyToken, verifyAdmin, upload.single('image'), async (req, res) => {
+  if (!req.file) {
+    return res.status(400).json({ message: 'No file uploaded' });
+  }
+
+  const file = req.file;
+  const fileExt = file.originalname.split('.').pop();
+  const fileName = `${Date.now()}-${Math.random().toString(36).substring(2, 15)}.${fileExt}`;
+  
+  try {
+    const { data, error } = await supabase.storage
+      .from('product-images')
+      .upload(fileName, file.buffer, {
+        contentType: file.mimetype,
+        upsert: false
+      });
+
+    if (error) throw error;
+
+    // Get public URL
+    const { data: publicUrlData } = supabase.storage
+      .from('product-images')
+      .getPublicUrl(fileName);
+
+    res.json({ imageUrl: publicUrlData.publicUrl });
+  } catch (error) {
+    console.error('Error uploading image:', error);
+    res.status(500).json({ message: 'Error uploading image' });
   }
 });
 

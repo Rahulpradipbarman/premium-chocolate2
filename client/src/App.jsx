@@ -6,6 +6,7 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Dashboard from './pages/Dashboard';
+import Admin from './pages/Admin';
 import PrivateRoute from './components/PrivateRoute';
 import ThemeToggle from './components/ThemeToggle';
 import Footer from './components/Footer';
@@ -15,7 +16,7 @@ import CartDrawer from './components/CartDrawer';
 import './index.css';
 
 const Navigation = () => {
-  const { isLoggedIn, logout } = useAuth();
+  const { user, isLoggedIn, logout } = useAuth();
   const { itemCount, setIsCartOpen } = useCart();
 
   return (
@@ -49,6 +50,7 @@ const Navigation = () => {
 
           {isLoggedIn ? (
             <>
+              {user?.role === 'admin' && <Link to="/admin" style={{ color: 'var(--color-primary)' }}>Admin</Link>}
               <Link to="/dashboard">Dashboard</Link>
               <button onClick={logout} className="btn btn-secondary btn-sm" style={{ padding: '4px 12px' }}>Logout</button>
             </>
@@ -83,6 +85,14 @@ function App() {
                 element={
                   <PrivateRoute>
                     <Dashboard />
+                  </PrivateRoute>
+                } 
+              />
+              <Route 
+                path="/admin" 
+                element={
+                  <PrivateRoute>
+                    <Admin />
                   </PrivateRoute>
                 } 
               />

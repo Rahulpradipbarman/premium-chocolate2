@@ -30,3 +30,28 @@ CREATE TABLE public.products (
 );
 
 ALTER TABLE public.products DISABLE ROW LEVEL SECURITY;
+
+-- Set up Storage for Product Images
+-- 1. Create the bucket
+INSERT INTO storage.buckets (id, name, public)
+VALUES ('product-images', 'product-images', true)
+ON CONFLICT (id) DO NOTHING;
+
+-- 2. Allow anyone to view the images
+CREATE POLICY "Public Access" 
+ON storage.objects FOR SELECT 
+USING (bucket_id = 'product-images');
+
+-- 3. Allow uploads to the bucket
+CREATE POLICY "Allow Uploads" 
+ON storage.objects FOR INSERT 
+WITH CHECK (bucket_id = 'product-images');
+
+-- 4. Allow updates and deletes
+CREATE POLICY "Allow Updates" 
+ON storage.objects FOR UPDATE 
+USING (bucket_id = 'product-images');
+
+CREATE POLICY "Allow Deletes" 
+ON storage.objects FOR DELETE 
+USING (bucket_id = 'product-images');
