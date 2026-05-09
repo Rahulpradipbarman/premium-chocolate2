@@ -20,14 +20,14 @@ const CartDrawer = () => {
 
         <div className="cart-items">
           {cartItems.length === 0 ? (
-            <div style={{ textAlign: 'center', marginTop: '3rem' }}>
-              <p style={{ color: 'var(--text-muted)', marginBottom: '1.5rem' }}>Your cart is empty.</p>
+            <div style={{ textAlign: 'center', marginTop: '48px' }}>
+              <p style={{ color: 'var(--text-muted)', marginBottom: '24px' }}>Your cart is empty.</p>
               <Link to="/shop" onClick={() => setIsCartOpen(false)} className="btn btn-primary">Browse Products</Link>
             </div>
           ) : (
             cartItems.map(item => (
               <div key={item.id} className="cart-item">
-                <img src={item.image} alt={item.name} className="cart-item-img" />
+                <img src={item.image_url || item.image || 'https://via.placeholder.com/150'} alt={item.name} className="cart-item-img" />
                 <div className="cart-item-details">
                   <h3 className="cart-item-title">{item.name}</h3>
                   <div className="cart-item-price">₹{item.price}</div>

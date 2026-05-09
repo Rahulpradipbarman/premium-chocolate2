@@ -23,10 +23,12 @@ export const CartProvider = ({ children }) => {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const isInitialMount = useRef(true);
 
-  // Load user cart on login
+  // Load user cart on login, clear on logout
   useEffect(() => {
     if (isLoggedIn && user && user.cart) {
       setCartItems(user.cart);
+    } else if (!isLoggedIn) {
+      setCartItems([]);
     }
   }, [isLoggedIn, user]);
 

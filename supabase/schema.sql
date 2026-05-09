@@ -55,3 +55,25 @@ USING (bucket_id = 'product-images');
 CREATE POLICY "Allow Deletes" 
 ON storage.objects FOR DELETE 
 USING (bucket_id = 'product-images');
+
+-- Orders Table
+CREATE TABLE public.orders (
+  id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+  user_id BIGINT REFERENCES public.users(id),
+  total_amount DECIMAL(10, 2) NOT NULL,
+  shipping_address JSONB NOT NULL,
+  status TEXT DEFAULT 'Pending',
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- Order Items Table
+CREATE TABLE public.order_items (
+  id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+  order_id UUID REFERENCES public.orders(id) ON DELETE CASCADE,
+  product_id UUID REFERENCES public.products(id),
+  quantity INTEGER NOT NULL,
+  price_at_purchase DECIMAL(10, 2) NOT NULL
+);
+
+ALTER TABLE public.orders DISABLE ROW LEVEL SECURITY;
+ALTER TABLE public.order_items DISABLE ROW LEVEL SECURITY;

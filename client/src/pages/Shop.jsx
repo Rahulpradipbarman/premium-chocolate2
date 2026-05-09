@@ -4,6 +4,56 @@ import { useCart } from '../context/CartContext';
 
 const API_URL = 'http://localhost:5000/api';
 
+const ProductCard = ({ product, addToCart }) => {
+  const [isExpanded, setIsExpanded] = useState(false);
+  const maxLength = 60; // Max characters before truncating
+
+  const description = product.description || '';
+  const needsTruncation = description.length > maxLength;
+  
+  const displayDesc = isExpanded || !needsTruncation 
+    ? description 
+    : `${description.substring(0, maxLength)}...`;
+
+  return (
+    <div className="product-card">
+      <div className="product-image-wrap">
+        <img src={product.image_url || 'https://via.placeholder.com/300'} alt={product.name} className="product-image" loading="lazy" />
+        <div className="product-overlay"></div>
+        <div className="product-add">
+          <button className="btn btn-primary" onClick={(e) => { e.stopPropagation(); addToCart(product); }}>
+            Add to Cart
+          </button>
+        </div>
+      </div>
+      <div className="product-info">
+        <h3 className="product-title">{product.name}</h3>
+        <p className="product-desc" style={{ marginBottom: needsTruncation ? '5px' : '15px' }}>
+          {displayDesc}
+        </p>
+        {needsTruncation && (
+          <button 
+            onClick={() => setIsExpanded(!isExpanded)} 
+            style={{ 
+              background: 'none', 
+              border: 'none', 
+              color: 'var(--color-primary)', 
+              cursor: 'pointer', 
+              fontSize: '0.85rem', 
+              padding: 0, 
+              marginBottom: '15px',
+              textDecoration: 'underline' 
+            }}
+          >
+            {isExpanded ? 'Show less' : 'Read more'}
+          </button>
+        )}
+        <p className="product-price">₹{product.price}</p>
+      </div>
+    </div>
+  );
+};
+
 const Shop = () => {
   const { addToCart } = useCart();
   const [products, setProducts] = useState([]);
@@ -41,23 +91,9 @@ const Shop = () => {
             <p style={{ textAlign: 'center', gridColumn: '1 / -1' }}>No products available at the moment.</p>
           ) : (
             products.map(product => (
-              <div key={product.id} className="product-card">
-                <div className="product-image-wrap">
-                  <img src={product.image_url || 'https://via.placeholder.com/300'} alt={product.name} className="product-image" loading="lazy" />
-                <div className="product-overlay"></div>
-                <div className="product-add">
-                  <button className="btn btn-primary" onClick={(e) => { e.stopPropagation(); addToCart(product); }}>
-                    Add to Cart
-                  </button>
-                </div>
-              </div>
-              <div className="product-info">
-                <h3 className="product-title">{product.name}</h3>
-                <p className="product-desc">{product.description}</p>
-                <p className="product-price">₹{product.price}</p>
-              </div>
-            </div>
-          )))}
+              <ProductCard key={product.id} product={product} addToCart={addToCart} />
+            ))
+          )}
         </div>
       </div>
     </div>

@@ -19,7 +19,7 @@ const Articles = () => {
     : articles.filter(a => a.category === activeFilter);
 
   return (
-    <div className="page" style={{ paddingTop: '100px' }}>
+    <div className="page" style={{ paddingTop: '64px' }}>
       <div className="container section-padding">
         <div className="page-header">
           <h1>The Luxe Noir Journal</h1>
@@ -48,7 +48,7 @@ const Articles = () => {
               </div>
               <div>
                 <span className="article-tag">{article.category}</span>
-                <h3 className="article-title" style={{ marginTop: '0.5rem', marginBottom: '1rem' }}>{article.title}</h3>
+                <h3 className="article-title" style={{ marginTop: '8px', marginBottom: '16px' }}>{article.title}</h3>
                 <p className="article-excerpt">{article.excerpt}</p>
                 <div className="article-meta">
                   <span style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>{article.time}</span>

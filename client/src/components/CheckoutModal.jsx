@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import { useCart } from '../context/CartContext';
+import { useAuth } from '../context/AuthContext';
+import axios from 'axios';
 
 const CheckoutModal = ({ isOpen, onClose }) => {
-  const { subtotal, clearCart } = useCart();
+  const { cartItems, subtotal, clearCart } = useCart();
+  const { isLoggedIn, token } = useAuth();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -18,47 +21,49 @@ const CheckoutModal = ({ isOpen, onClose }) => {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handlePayment = (e) => {
+  const handlePayment = async (e) => {
     e.preventDefault();
+    if (!isLoggedIn) {
+      alert("Please log in to place an order.");
+      return;
+    }
+    
     setIsProcessing(true);
 
-    const amountInPaise = subtotal * 100;
+    // MOCK PAYMENT PROCESS (Since we don't have a real Razorpay/Stripe key yet)
+    setTimeout(async () => {
+      try {
+        // Send order to backend
+        const orderData = {
+          cartItems,
+          shippingAddress: {
+            name: formData.name,
+            email: formData.email,
+            phone: formData.phone,
+            address: formData.address
+          }
+        };
 
-    const options = {
-      key: "rzp_test_XXXXXXXXXX", // Placeholder key as requested
-      amount: amountInPaise,
-      currency: "INR",
-      name: "Luxe Noir",
-      description: "Artisan Dark Chocolate Purchase",
-      handler: function (response) {
+        await axios.post('http://localhost:5000/api/orders', orderData, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+
         setIsProcessing(false);
-        // On success
-        alert(`Payment successful! Payment ID: ${response.razorpay_payment_id}`);
+        alert(`Payment successful! Order placed.`);
         clearCart();
         onClose();
-      },
-      prefill: {
-        name: formData.name,
-        email: formData.email,
-        contact: formData.phone
-      },
-      theme: {
-        color: "#C9A84C"
+      } catch (error) {
+        console.error('Error placing order:', error);
+        alert('Payment succeeded but failed to save order. Please contact support.');
+        setIsProcessing(false);
       }
-    };
-
-    const rzp = new window.Razorpay(options);
-    rzp.on('payment.failed', function (response){
-      setIsProcessing(false);
-      alert('Payment failed. Please try again.');
-    });
-    rzp.open();
+    }, 1500); // Simulate a 1.5 second loading delay
   };
 
   return (
     <div className="checkout-modal">
       <div className="checkout-container">
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '32px' }}>
           <h2 style={{ marginBottom: 0 }}>Secure Checkout</h2>
           <button onClick={onClose} className="icon-btn">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
@@ -83,7 +88,7 @@ const CheckoutModal = ({ isOpen, onClose }) => {
             <textarea name="address" className="form-input" rows="3" required value={formData.address} onChange={handleInputChange}></textarea>
           </div>
           
-          <div style={{ marginTop: '2.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div style={{ marginTop: '48px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <span style={{ fontSize: '1.25rem', fontFamily: 'var(--font-display)' }}>Total: <span className="gold-text">₹{subtotal}</span></span>
             <button type="submit" className="btn btn-solid" disabled={isProcessing}>
               {isProcessing ? 'Processing...' : 'Pay Now'}
