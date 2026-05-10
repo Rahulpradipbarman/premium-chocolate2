@@ -22,8 +22,10 @@ const Admin = () => {
     description: '',
     price: '',
     stock: '',
+    category: 'Bars'
   });
   const [imageFile, setImageFile] = useState(null);
+  const [customCategory, setCustomCategory] = useState('');
 
   useEffect(() => {
     // Redirect if not admin
@@ -108,6 +110,7 @@ const Admin = () => {
         description: formData.description,
         price: parseFloat(formData.price),
         stock: parseInt(formData.stock) || 0,
+        category: formData.category === 'custom' ? customCategory : (formData.category || 'Uncategorized'),
         image_url: imageUrl
       };
 
@@ -140,7 +143,8 @@ const Admin = () => {
       name: product.name,
       description: product.description || '',
       price: product.price,
-      stock: product.stock || 0
+      stock: product.stock || 0,
+      category: product.category || 'Bars'
     });
     setImageFile(null);
   };
@@ -148,8 +152,9 @@ const Admin = () => {
   const resetForm = () => {
     setEditingId(null);
     setExistingImageUrl(null);
-    setFormData({ name: '', description: '', price: '', stock: '' });
+    setFormData({ name: '', description: '', price: '', stock: '', category: 'Bars' });
     setImageFile(null);
+    setCustomCategory('');
   };
 
   const handleDelete = async (id) => {
@@ -165,6 +170,12 @@ const Admin = () => {
   };
 
   if (loading) return <div className="container" style={{paddingTop: '64px'}}>Loading...</div>;
+
+  // Calculate unique categories from products, plus defaults
+  const uniqueCategories = [...new Set([
+    'Bars', 'Truffles', 'Gifts', 'Uncategorized', 
+    ...products.map(p => p.category).filter(Boolean)
+  ])];
 
   return (
     <div className="page" style={{ paddingTop: '64px' }}>
@@ -209,6 +220,26 @@ const Admin = () => {
                 <input type="number" name="price" value={formData.price} onChange={handleChange} required className="form-control" style={{ width: '100%', padding: '8px' }} />
               </div>
               <div className="form-group" style={{ marginBottom: '16px' }}>
+                <label>Category</label>
+                <select name="category" value={formData.category} onChange={handleChange} className="form-control" style={{ width: '100%', padding: '8px', background: '#F5F1E7', color: '#000', border: '1px solid #ccc', borderRadius: '4px', outline: 'none' }}>
+                  {uniqueCategories.map(cat => (
+                    <option key={cat} value={cat}>{cat}</option>
+                  ))}
+                  <option value="custom">+ Add New Category</option>
+                </select>
+                {formData.category === 'custom' && (
+                  <input 
+                    type="text" 
+                    placeholder="Enter new category name..." 
+                    value={customCategory} 
+                    onChange={(e) => setCustomCategory(e.target.value)} 
+                    className="form-control" 
+                    style={{ width: '100%', padding: '8px', marginTop: '8px' }} 
+                    required 
+                  />
+                )}
+              </div>
+              <div className="form-group" style={{ marginBottom: '16px' }}>
                 <label>Stock Quantity</label>
                 <input type="number" name="stock" value={formData.stock} onChange={handleChange} className="form-control" style={{ width: '100%', padding: '8px' }} />
               </div>
@@ -232,25 +263,43 @@ const Admin = () => {
           {/* Product List */}
           <div className="admin-products" style={{ padding: '32px', background: 'var(--bg-card)', borderRadius: '12px' }}>
             <h2>Current Products</h2>
-            <div style={{ marginTop: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            <div style={{ marginTop: '24px', overflowX: 'auto' }}>
               {products.length === 0 ? (
                 <p>No products found. Add your first product!</p>
               ) : (
-                products.map((product) => (
-                  <div key={product.id} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '16px', background: 'var(--bg-body)', borderRadius: '8px' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-                      <img src={product.image_url || 'https://via.placeholder.com/50'} alt={product.name} style={{ width: '50px', height: '50px', objectFit: 'cover', borderRadius: '4px' }} />
-                      <div>
-                        <h4 style={{ margin: '0' }}>{product.name}</h4>
-                        <p style={{ margin: '0', fontSize: '0.9rem', color: 'var(--color-primary)' }}>₹{product.price}</p>
-                      </div>
-                    </div>
-                    <div style={{ display: 'flex', gap: '8px' }}>
-                      <button onClick={() => handleEdit(product)} className="btn btn-sm" style={{ background: 'transparent', border: '1px solid var(--text-muted)', color: 'var(--text-main)' }}>Edit</button>
-                      <button onClick={() => handleDelete(product.id)} className="btn btn-sm" style={{ background: 'transparent', border: '1px solid var(--color-primary)', color: 'var(--color-primary)' }}>Delete</button>
-                    </div>
-                  </div>
-                ))
+                <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
+                  <thead>
+                    <tr style={{ borderBottom: '1px solid var(--border-color)' }}>
+                      <th style={{ padding: '12px' }}>Image</th>
+                      <th style={{ padding: '12px' }}>Name</th>
+                      <th style={{ padding: '12px' }}>Category</th>
+                      <th style={{ padding: '12px' }}>Price</th>
+                      <th style={{ padding: '12px' }}>Stock</th>
+                      <th style={{ padding: '12px' }}>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {products.map((product) => (
+                      <tr key={product.id} style={{ borderBottom: '1px solid var(--border-color)' }}>
+                        <td style={{ padding: '12px' }}>
+                          <img src={product.image_url || 'https://via.placeholder.com/50'} alt={product.name} style={{ width: '40px', height: '40px', objectFit: 'cover', borderRadius: '4px' }} />
+                        </td>
+                        <td style={{ padding: '12px' }}>{product.name}</td>
+                        <td style={{ padding: '12px' }}>
+                          <span style={{ padding: '4px 8px', borderRadius: '12px', background: 'var(--bg-body)', fontSize: '0.85rem' }}>{product.category || 'Uncategorized'}</span>
+                        </td>
+                        <td style={{ padding: '12px', color: 'var(--color-primary)' }}>₹{product.price}</td>
+                        <td style={{ padding: '12px' }}>{product.stock}</td>
+                        <td style={{ padding: '12px' }}>
+                          <div style={{ display: 'flex', gap: '8px' }}>
+                            <button onClick={() => handleEdit(product)} className="btn btn-sm" style={{ background: 'transparent', border: '1px solid var(--text-muted)', color: 'var(--text-main)', padding: '4px 8px' }}>Edit</button>
+                            <button onClick={() => handleDelete(product.id)} className="btn btn-sm" style={{ background: 'transparent', border: '1px solid var(--color-primary)', color: 'var(--color-primary)', padding: '4px 8px' }}>Delete</button>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
               )}
             </div>
           </div>
@@ -258,60 +307,64 @@ const Admin = () => {
         ) : (
           <div className="admin-orders" style={{ padding: '32px', background: 'var(--bg-card)', borderRadius: '12px' }}>
             <h2>Incoming Orders</h2>
-            <div style={{ marginTop: '24px', display: 'flex', flexDirection: 'column', gap: '24px' }}>
+            <div style={{ marginTop: '24px', overflowX: 'auto' }}>
               {orders.length === 0 ? (
                 <p>No orders yet.</p>
               ) : (
-                orders.map(order => (
-                  <div key={order.id} style={{ padding: '24px', background: 'var(--bg-body)', borderRadius: '8px', border: '1px solid var(--border-color)' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', borderBottom: '1px solid var(--border-color)', paddingBottom: '16px', marginBottom: '16px' }}>
-                      <div>
-                        <h3 style={{ margin: '0 0 8px 0' }}>Order #{order.id.substring(0, 8)}</h3>
-                        <p style={{ margin: '0', color: 'var(--text-muted)', fontSize: '0.9rem' }}>
-                          Placed by {order.users?.full_name} ({order.users?.email}) on {new Date(order.created_at).toLocaleDateString()}
-                        </p>
-                      </div>
-                      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '8px' }}>
-                        <span style={{ fontSize: '1.2rem', fontWeight: 'bold', color: 'var(--color-primary)' }}>₹{order.total_amount}</span>
-                        <select 
-                          value={order.status} 
-                          onChange={(e) => updateOrderStatus(order.id, e.target.value)}
-                          style={{ padding: '4px 8px', borderRadius: '4px', background: 'var(--bg-card)', color: 'var(--text-main)', border: '1px solid var(--border-color)' }}
-                        >
-                          <option value="Pending">Pending</option>
-                          <option value="Processing">Processing</option>
-                          <option value="Shipped">Shipped</option>
-                          <option value="Delivered">Delivered</option>
-                          <option value="Cancelled">Cancelled</option>
-                        </select>
-                      </div>
-                    </div>
-                    
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' }}>
-                      <div>
-                        <h4 style={{ marginBottom: '12px', fontSize: '1rem' }}>Items</h4>
-                        {order.order_items.map((item, idx) => (
-                          <div key={idx} style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px', fontSize: '0.9rem' }}>
-                            <span>{item.quantity}x {item.products?.name || 'Unknown Product'}</span>
-                            <span>₹{item.price_at_purchase}</span>
+                <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '800px' }}>
+                  <thead>
+                    <tr style={{ borderBottom: '1px solid var(--border-color)' }}>
+                      <th style={{ padding: '12px' }}>Order ID</th>
+                      <th style={{ padding: '12px' }}>Date</th>
+                      <th style={{ padding: '12px' }}>Customer</th>
+                      <th style={{ padding: '12px' }}>Items</th>
+                      <th style={{ padding: '12px' }}>Total</th>
+                      <th style={{ padding: '12px' }}>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {orders.map(order => (
+                      <tr key={order.id} style={{ borderBottom: '1px solid var(--border-color)', verticalAlign: 'top' }}>
+                        <td style={{ padding: '16px 12px' }}>
+                          <span style={{ fontFamily: 'monospace', fontSize: '0.9rem' }}>#{order.id.substring(0, 8)}</span>
+                        </td>
+                        <td style={{ padding: '16px 12px', fontSize: '0.9rem' }}>
+                          {new Date(order.created_at).toLocaleDateString()}
+                        </td>
+                        <td style={{ padding: '16px 12px', fontSize: '0.9rem' }}>
+                          <div style={{ fontWeight: 'bold' }}>{order.users?.full_name}</div>
+                          <div style={{ color: 'var(--text-muted)' }}>{order.users?.email}</div>
+                          <div style={{ color: 'var(--text-muted)', marginTop: '4px', maxWidth: '200px' }}>
+                            {order.shipping_address?.address}
                           </div>
-                        ))}
-                      </div>
-                      <div>
-                        <h4 style={{ marginBottom: '12px', fontSize: '1rem' }}>Shipping Details</h4>
-                        {order.shipping_address ? (
-                          <div style={{ fontSize: '0.9rem', color: 'var(--text-muted)', lineHeight: '1.5' }}>
-                            <p style={{ margin: 0 }}>{order.shipping_address.name}</p>
-                            <p style={{ margin: 0 }}>{order.shipping_address.phone}</p>
-                            <p style={{ margin: 0 }}>{order.shipping_address.address}</p>
-                          </div>
-                        ) : (
-                          <p>No shipping info</p>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                ))
+                        </td>
+                        <td style={{ padding: '16px 12px', fontSize: '0.9rem' }}>
+                          <ul style={{ margin: 0, paddingLeft: '16px' }}>
+                            {order.order_items.map((item, idx) => (
+                              <li key={idx}>{item.quantity}x {item.products?.name || 'Unknown'}</li>
+                            ))}
+                          </ul>
+                        </td>
+                        <td style={{ padding: '16px 12px', fontWeight: 'bold', color: 'var(--color-primary)' }}>
+                          ₹{order.total_amount}
+                        </td>
+                        <td style={{ padding: '16px 12px' }}>
+                          <select 
+                            value={order.status} 
+                            onChange={(e) => updateOrderStatus(order.id, e.target.value)}
+                            style={{ padding: '4px 8px', borderRadius: '4px', background: '#F5F1E7', color: '#000', border: '1px solid #ccc', outline: 'none', cursor: 'pointer' }}
+                          >
+                            <option value="Pending">Pending</option>
+                            <option value="Processing">Processing</option>
+                            <option value="Shipped">Shipped</option>
+                            <option value="Delivered">Delivered</option>
+                            <option value="Cancelled">Cancelled</option>
+                          </select>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
               )}
             </div>
           </div>

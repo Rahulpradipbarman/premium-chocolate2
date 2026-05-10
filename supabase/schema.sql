@@ -77,3 +77,5 @@ CREATE TABLE public.order_items (
 
 ALTER TABLE public.orders DISABLE ROW LEVEL SECURITY;
 ALTER TABLE public.order_items DISABLE ROW LEVEL SECURITY;
+
+ALTER TABLE public.products ADD COLUMN category TEXT DEFAULT 'Uncategorized';

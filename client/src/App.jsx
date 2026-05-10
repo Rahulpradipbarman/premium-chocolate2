@@ -33,10 +33,9 @@ const Navigation = () => {
             NOIR LUXE
           </Link>
         </div>
-        
         <div className="nav-center">
           <Link to="/">Home</Link>
-          <Link to="/shop">Shop</Link>
+          <Link to="/shop">Collections</Link>
           <Link to="/articles">Articles</Link>
         </div>
 
