@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import EleganceShowcase from '../components/EleganceShowcase';
 
 const Home = () => {
   const canvasRef = useRef(null);
@@ -105,6 +106,8 @@ const Home = () => {
             </div>
           </div>
         </section>
+
+        <EleganceShowcase />
 
         {/* The Velour Standard */}
         <section className="velour-standard" style={{ padding: 'var(--space-8) 0', backgroundColor: '#fdfbf7', color: '#2c1e16' }}>
