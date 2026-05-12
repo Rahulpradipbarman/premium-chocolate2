@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import ChocolateCarousel from '../components/ChocolateCarousel';
 
 const Home = () => {
   const canvasRef = useRef(null);
@@ -86,6 +87,8 @@ const Home = () => {
            </section>
         </div>
       </div>
+      <ChocolateCarousel />
+
 
       {/* Static Sections */}
       <div style={{ position: 'relative', zIndex: 1, backgroundColor: 'var(--color-bg)' }}>
