@@ -77,7 +77,7 @@ router.post('/upload', verifyToken, verifyAdmin, upload.single('image'), async (
 
 // POST new product (Admin only)
 router.post('/', verifyToken, verifyAdmin, async (req, res) => {
-  const { name, description, price, image_url, stock, category } = req.body;
+  const { name, description, price, image_url, stock, category, ingredients, allergy_info } = req.body;
 
   if (!name || !price) {
     return res.status(400).json({ message: 'Name and price are required' });
@@ -86,7 +86,7 @@ router.post('/', verifyToken, verifyAdmin, async (req, res) => {
   try {
     const { data: newProduct, error } = await supabase
       .from('products')
-      .insert([{ name, description, price, image_url, stock, category: category || 'Uncategorized' }])
+      .insert([{ name, description, price, image_url, stock, category: category || 'Uncategorized', ingredients, allergy_info }])
       .select('*')
       .single();
 
@@ -100,12 +100,12 @@ router.post('/', verifyToken, verifyAdmin, async (req, res) => {
 
 // PUT update product (Admin only)
 router.put('/:id', verifyToken, verifyAdmin, async (req, res) => {
-  const { name, description, price, image_url, stock, category } = req.body;
+  const { name, description, price, image_url, stock, category, ingredients, allergy_info } = req.body;
 
   try {
     const { data: updatedProduct, error } = await supabase
       .from('products')
-      .update({ name, description, price, image_url, stock, category: category || 'Uncategorized' })
+      .update({ name, description, price, image_url, stock, category: category || 'Uncategorized', ingredients, allergy_info })
       .eq('id', req.params.id)
       .select('*')
       .single();

@@ -58,6 +58,12 @@ USING (bucket_id = 'product-images');
 
 -- Orders Table
 CREATE TABLE public.orders (
+ALTER TABLE public.products ADD COLUMN category TEXT DEFAULT 'Uncategorized';
+ALTER TABLE public.products ADD COLUMN ingredients TEXT;
+ALTER TABLE public.products ADD COLUMN allergy_info TEXT;
+
+-- Orders Table
+CREATE TABLE IF NOT EXISTS public.orders (
   id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
   user_id BIGINT REFERENCES public.users(id),
   total_amount DECIMAL(10, 2) NOT NULL,
@@ -68,6 +74,7 @@ CREATE TABLE public.orders (
 
 -- Order Items Table
 CREATE TABLE public.order_items (
+CREATE TABLE IF NOT EXISTS public.order_items (
   id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
   order_id UUID REFERENCES public.orders(id) ON DELETE CASCADE,
   product_id UUID REFERENCES public.products(id),

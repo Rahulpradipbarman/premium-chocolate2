@@ -11,6 +11,7 @@ import PrivateRoute from './components/PrivateRoute';
 import ThemeToggle from './components/ThemeToggle';
 import Footer from './components/Footer';
 import Shop from './pages/Shop';
+import ProductDetails from './pages/ProductDetails';
 import Articles from './pages/Articles';
 import CartDrawer from './components/CartDrawer';
 import './index.css';
@@ -76,6 +77,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/shop" element={<Shop />} />
+              <Route path="/product/:id" element={<ProductDetails />} />
               <Route path="/articles" element={<Articles />} />
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
