@@ -26,7 +26,9 @@ const Home = () => {
       
       loadedImages.push(img);
     }
-    setImages(loadedImages);
+    setTimeout(() => {
+      setImages(loadedImages);
+    }, 0);
   }, []);
 
   useEffect(() => {

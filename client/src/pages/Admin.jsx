@@ -27,6 +27,28 @@ const Admin = () => {
   const [imageFile, setImageFile] = useState(null);
   const [customCategory, setCustomCategory] = useState('');
 
+  const fetchProducts = React.useCallback(async () => {
+    try {
+      const res = await axios.get(`${API_URL}/products`);
+      setProducts(res.data);
+    } catch (err) {
+      console.error('Error fetching products', err);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  const fetchOrders = React.useCallback(async () => {
+    try {
+      const res = await axios.get(`${API_URL}/orders`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      setOrders(res.data);
+    } catch (err) {
+      console.error('Error fetching orders', err);
+    }
+  }, [token]);
+
   useEffect(() => {
     // Redirect if not admin
     if (user && user.role !== 'admin') {
@@ -38,29 +60,7 @@ const Admin = () => {
       fetchProducts();
       fetchOrders();
     }
-  }, [user, token, navigate]);
-
-  const fetchProducts = async () => {
-    try {
-      const res = await axios.get(`${API_URL}/products`);
-      setProducts(res.data);
-    } catch (err) {
-      console.error('Error fetching products', err);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const fetchOrders = async () => {
-    try {
-      const res = await axios.get(`${API_URL}/orders`, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
-      setOrders(res.data);
-    } catch (err) {
-      console.error('Error fetching orders', err);
-    }
-  };
+  }, [user, token, navigate, fetchProducts, fetchOrders]);
 
   const updateOrderStatus = async (id, status) => {
     try {
