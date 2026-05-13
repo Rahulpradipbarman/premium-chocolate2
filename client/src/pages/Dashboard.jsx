@@ -38,8 +38,9 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="container" style={{ padding: 'var(--space-8) var(--space-3)' }}>
-      <h1 style={{ marginBottom: 'var(--space-4)' }}>Welcome to your Dashboard, {user?.fullName?.split(' ')[0]}!</h1>
+    <div className="page">
+      <div className="container" style={{ padding: '0 var(--space-3) var(--space-8)' }}>
+        <h1 style={{ marginBottom: 'var(--space-4)' }}>Welcome to your Dashboard, {user?.fullName?.split(' ')[0]}!</h1>
       
       {error ? (
         <div style={{ color: 'red' }}>{error}</div>
@@ -89,6 +90,7 @@ const Dashboard = () => {
           )}
         </div>
       )}
+      </div>
     </div>
   );
 };

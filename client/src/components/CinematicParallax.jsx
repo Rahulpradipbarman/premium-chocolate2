@@ -160,9 +160,9 @@ export default function CinematicParallax() {
             fontSize: "clamp(42px, 12vw, 110px)",
             fontWeight: 900,
             letterSpacing: "0.18em",
-            color: "rgba(212, 175, 55, 0.4)", /* Transparent gold */
+            color: "#d4af37",
             whiteSpace: "nowrap",
-            mixBlendMode: "color-dodge", /* Premium lighting effect */
+            mixBlendMode: "normal",
             fontFamily: "inherit",
           }}
         >

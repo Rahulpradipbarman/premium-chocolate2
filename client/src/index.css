@@ -557,6 +557,10 @@ header:hover {
   box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
 }
 
+.page {
+  padding-top: 120px;
+}
+
 /* --- RESPONSIVE OVERRIDES --- */
 .mobile-only {
   display: none !important;
