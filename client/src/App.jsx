@@ -8,7 +8,6 @@ import Signup from './pages/Signup';
 import Dashboard from './pages/Dashboard';
 import Admin from './pages/Admin';
 import PrivateRoute from './components/PrivateRoute';
-import ThemeToggle from './components/ThemeToggle';
 import Footer from './components/Footer';
 import Shop from './pages/Shop';
 import ProductDetails from './pages/ProductDetails';

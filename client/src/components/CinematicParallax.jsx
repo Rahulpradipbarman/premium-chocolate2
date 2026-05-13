@@ -96,22 +96,22 @@ function ParallaxCell({ cell, scrollYProgress }) {
           viewport={{ once: true }}
           transition={{ delay: 0.2, duration: 0.8 }}
           style={{ 
-            fontSize: "11px", 
+            fontSize: "clamp(9px, 2.5vw, 11px)", 
             fontWeight: 600,
             color: "rgba(255,255,255,0.9)", 
             letterSpacing: "0.08em", 
-            margin: "0 0 4px 14px",
+            margin: "0 0 4px 10px",
             textShadow: "0 2px 4px rgba(0,0,0,0.8)"
           }}
         >
           {cell.desc}
         </motion.div>
         <div style={{ 
-          fontSize: "12px", 
+          fontSize: "clamp(10px, 3.5vw, 12px)", 
           fontWeight: 800,
           letterSpacing: "0.14em", 
           color: "#ffffff", 
-          margin: "0 0 12px 14px",
+          margin: "0 0 10px 10px",
           textShadow: "0 2px 4px rgba(0,0,0,0.8)"
         }}>
           {cell.label}
@@ -157,12 +157,12 @@ export default function CinematicParallax() {
         <motion.div
           style={{
             x: textX,
-            fontSize: "clamp(52px, 9vw, 110px)",
+            fontSize: "clamp(42px, 12vw, 110px)",
             fontWeight: 900,
             letterSpacing: "0.18em",
-            color: "#d4af37",
+            color: "rgba(212, 175, 55, 0.4)", /* Transparent gold */
             whiteSpace: "nowrap",
-            mixBlendMode: "normal",
+            mixBlendMode: "color-dodge", /* Premium lighting effect */
             fontFamily: "inherit",
           }}
         >
@@ -176,23 +176,30 @@ export default function CinematicParallax() {
           z-index: 1;
           max-width: 1200px;
           margin: 0 auto;
-          padding: 0 24px;
+          padding: 0 16px;
           perspective: 1200px;
           transform: perspective(1200px);
         }
         .parallax-grid {
           display: grid;
           grid-template-columns: repeat(3, 1fr);
-          gap: 12px;
+          gap: 16px;
         }
         @media (max-width: 768px) {
           .parallax-grid {
             grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+          }
+          /* Hide the 9th item so we have exactly 8 items (perfect 2-column grid) */
+          .parallax-grid > div:last-child {
+            display: none;
           }
         }
         @media (max-width: 480px) {
           .parallax-grid {
-            grid-template-columns: repeat(1, 1fr);
+            /* Keep 2 columns on mobile to preserve the parallax grid aesthetic */
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
           }
         }
       `}} />
