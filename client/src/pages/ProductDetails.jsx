@@ -46,7 +46,7 @@ const ProductDetails = () => {
           &larr; Back to Shop
         </Link>
         
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '60px', alignItems: 'start' }}>
+        <div className="product-details-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '60px', alignItems: 'start' }}>
           {/* Image Gallery */}
           <div style={{ position: 'sticky', top: '120px' }}>
             <img 

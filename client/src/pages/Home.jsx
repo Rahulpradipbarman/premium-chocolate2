@@ -81,8 +81,8 @@ const Home = () => {
            {/* Hero Text */}
            <section style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}>
              <div className="container">
-               <h1 style={{ fontSize: '4rem', marginBottom: '16px', color: 'var(--color-primary)' }}>Noir Luxe</h1>
-               <p style={{ fontSize: '1.5rem', marginBottom: '32px', fontWeight: 300, color: '#f5ecd7' }}>
+               <h1 className="hero-title">Noir Luxe</h1>
+               <p className="hero-subtitle">
                  Experience the ultimate premium artisan chocolate sensation.
                </p>
                <Link to="/shop" className="btn">Shop Collection</Link>
