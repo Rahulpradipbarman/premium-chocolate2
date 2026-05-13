@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import ChocolateCarousel from '../components/ChocolateCarousel';
+import CinematicParallax from '../components/CinematicParallax';
 
 const Home = () => {
   const canvasRef = useRef(null);
@@ -90,7 +91,7 @@ const Home = () => {
         </div>
       </div>
       <ChocolateCarousel />
-
+      <CinematicParallax />
 
       {/* Static Sections */}
       <div style={{ position: 'relative', zIndex: 1, backgroundColor: 'var(--color-bg)' }}>
