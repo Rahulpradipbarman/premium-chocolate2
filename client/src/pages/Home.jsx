@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import ChocolateCarousel from '../components/ChocolateCarousel';
 import CinematicParallax from '../components/CinematicParallax';
+import BrandCardSection from '../components/BrandCardSection/BrandCardSection';
 
 const Home = () => {
   const canvasRef = useRef(null);
@@ -92,6 +93,17 @@ const Home = () => {
       </div>
       <ChocolateCarousel />
       <CinematicParallax />
+      <BrandCardSection
+        heroImage="/images/nano_banana_chocolate.png"
+        brandName="Noir Luxe"
+        sectionTitle="Our Story"
+        sectionSubtitle="Three chapters. One brand."
+        cards={[
+          { tag: 'Collection 01', title: 'Visual Identity', accentColor: '#534AB7', backTitle: 'Where form meets meaning', backBody: 'Every element crafted to tell a story.', icon: 'sparkles' },
+          { tag: 'Collection 02', title: 'Sustainability', accentColor: '#0F6E56', backTitle: 'Built for tomorrow', backBody: 'Responsible sourcing, minimal waste.', icon: 'leaf' },
+          { tag: 'Collection 03', title: 'Craftsmanship', accentColor: '#993C1D', backTitle: 'Made with intention', backBody: 'Precision and pride in every detail.', icon: 'flame' },
+        ]}
+      />
 
       {/* Static Sections */}
       <div style={{ position: 'relative', zIndex: 1, backgroundColor: 'var(--color-bg)' }}>
