@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import { API_URL } from '../config';
 
 const Dashboard = () => {
   const { user, token, logout } = useAuth();
@@ -14,8 +15,8 @@ const Dashboard = () => {
     const fetchProfileAndOrders = async () => {
       try {
         const [profileRes, ordersRes] = await Promise.all([
-          axios.get('http://localhost:5000/api/user/me', { headers: { Authorization: `Bearer ${token}` } }),
-          axios.get('http://localhost:5000/api/orders/me', { headers: { Authorization: `Bearer ${token}` } })
+          axios.get(`${API_URL}/user/me`, { headers: { Authorization: `Bearer ${token}` } }),
+          axios.get(`${API_URL}/orders/me`, { headers: { Authorization: `Bearer ${token}` } })
         ]);
         setProfile(profileRes.data);
         setOrders(ordersRes.data);

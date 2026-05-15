@@ -3,7 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
 import { useCart } from '../context/CartContext';
 
-const API_URL = 'http://localhost:5000/api';
+import { API_URL } from '../config';
 
 const ProductDetails = () => {
   const { id } = useParams();

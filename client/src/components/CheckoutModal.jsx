@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
 import axios from 'axios';
+import { API_URL } from '../config';
 
 const CheckoutModal = ({ isOpen, onClose }) => {
   const { cartItems, subtotal, clearCart } = useCart();
@@ -44,7 +45,7 @@ const CheckoutModal = ({ isOpen, onClose }) => {
           }
         };
 
-        await axios.post('http://localhost:5000/api/orders', orderData, {
+        await axios.post(`${API_URL}/orders`, orderData, {
           headers: { Authorization: `Bearer ${token}` }
         });
 

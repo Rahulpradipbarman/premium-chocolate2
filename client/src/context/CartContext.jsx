@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useEffect, useRef } from 'react';
 import { useAuth } from './AuthContext';
 import axios from 'axios';
+import { API_URL } from '../config';
 
 const CartContext = createContext();
 
@@ -45,7 +46,7 @@ export const CartProvider = ({ children }) => {
       // Axios interceptor inside AuthContext already attaches token,
       // but to be safe, if using axios directly here without waiting for interceptor setup,
       // we can just rely on the global interceptor.
-      axios.post('http://localhost:5000/api/user/cart', { cart: cartItems })
+      axios.post(`${API_URL}/user/cart`, { cart: cartItems })
         .catch(err => console.error('Failed to sync cart:', err));
     }
   }, [cartItems, isLoggedIn, token]);

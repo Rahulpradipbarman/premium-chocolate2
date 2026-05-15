@@ -4,7 +4,7 @@ import { useCart } from '../context/CartContext';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-const API_URL = 'http://localhost:5000/api';
+import { API_URL } from '../config';
 
 const ExpandableDescription = ({ text, maxLength = 80 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
