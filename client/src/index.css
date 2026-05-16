@@ -208,13 +208,21 @@ header:hover {
   margin-bottom: var(--space-1);
 }
 
-.form-group input {
+.form-group input:not([type="checkbox"]) {
   width: 100%;
   padding: var(--space-2);
   border: 1px solid var(--color-border);
   border-radius: 8px;
   background-color: var(--color-surface);
   color: var(--color-text);
+}
+
+.checkbox-input {
+  width: 16px !important;
+  height: 16px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  flex-shrink: 0;
 }
 
 .auth-container {

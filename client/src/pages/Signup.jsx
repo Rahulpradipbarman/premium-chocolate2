@@ -81,9 +81,9 @@ const Signup = () => {
               <input 
                 type="checkbox" 
                 id="showPasswordSignup" 
+                className="checkbox-input"
                 checked={showPassword} 
                 onChange={() => setShowPassword(!showPassword)}
-                style={{ width: 'auto' }}
               />
               <label htmlFor="showPasswordSignup" style={{ margin: 0, fontSize: '0.85rem' }}>Show Password</label>
             </div>
@@ -93,9 +93,9 @@ const Signup = () => {
               type="checkbox" 
               id="subscribeToNewsletter" 
               name="subscribeToNewsletter" 
+              className="checkbox-input"
               checked={formData.subscribeToNewsletter} 
               onChange={handleChange}
-              style={{ width: 'auto' }}
             />
             <label htmlFor="subscribeToNewsletter" style={{ margin: 0 }}>Subscribe to newsletter</label>
           </div>

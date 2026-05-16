@@ -69,9 +69,9 @@ const Login = () => {
               <input 
                 type="checkbox" 
                 id="showPasswordLogin" 
+                className="checkbox-input"
                 checked={showPassword} 
                 onChange={() => setShowPassword(!showPassword)}
-                style={{ width: 'auto' }}
               />
               <label htmlFor="showPasswordLogin" style={{ margin: 0, fontSize: '0.85rem' }}>Show Password</label>
             </div>
