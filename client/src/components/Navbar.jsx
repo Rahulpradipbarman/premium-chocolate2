@@ -28,9 +28,9 @@ const Navbar = () => {
   const navStyle = {
     padding: isScrolled ? '12px 0' : '24px 0',
     backgroundColor: isDarkMode 
-      ? (isScrolled ? 'rgba(26, 17, 10, 0.85)' : 'transparent')
+      ? ((isScrolled || isMobileMenuOpen) ? 'rgba(26, 17, 10, 0.95)' : 'transparent')
       : '#fffaf0', // Static opaque cream in light mode
-    boxShadow: isScrolled ? '0 10px 30px rgba(0,0,0,0.1)' : 'none',
+    boxShadow: (isScrolled || isMobileMenuOpen) ? '0 10px 30px rgba(0,0,0,0.1)' : 'none',
   };
 
   return (
