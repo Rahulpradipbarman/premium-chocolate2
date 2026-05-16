@@ -12,6 +12,7 @@ const Signup = () => {
   });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -38,8 +39,9 @@ const Signup = () => {
   };
 
   return (
-    <div className="container">
-      <div className="auth-container">
+    <div style={{ paddingTop: '100px', paddingBottom: '40px', minHeight: '80vh' }}>
+      <div className="container">
+        <div className="auth-container">
         <h2 style={{ textAlign: 'center', marginBottom: 'var(--space-4)' }}>Create Account</h2>
         {error && <div style={{ color: 'red', marginBottom: 'var(--space-2)' }}>{error}</div>}
         <form onSubmit={handleSubmit}>
@@ -68,13 +70,23 @@ const Signup = () => {
           <div className="form-group">
             <label htmlFor="password">Password</label>
             <input 
-              type="password" 
+              type={showPassword ? "text" : "password"} 
               id="password" 
               name="password" 
               value={formData.password} 
               onChange={handleChange} 
               required 
             />
+            <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-1)', marginTop: '8px' }}>
+              <input 
+                type="checkbox" 
+                id="showPasswordSignup" 
+                checked={showPassword} 
+                onChange={() => setShowPassword(!showPassword)}
+                style={{ width: 'auto' }}
+              />
+              <label htmlFor="showPasswordSignup" style={{ margin: 0, fontSize: '0.85rem' }}>Show Password</label>
+            </div>
           </div>
           <div className="form-group" style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-1)' }}>
             <input 
@@ -94,6 +106,7 @@ const Signup = () => {
         <p style={{ textAlign: 'center', marginTop: 'var(--space-4)' }}>
           Already have an account? <Link to="/login">Log in here</Link>.
         </p>
+      </div>
       </div>
     </div>
   );

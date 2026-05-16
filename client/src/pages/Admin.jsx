@@ -180,7 +180,7 @@ const Admin = () => {
   return (
     <div className="page" style={{ paddingTop: '64px' }}>
       <div className="container section-padding">
-        <div className="page-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div className="page-header admin-header">
           <div>
             <h1>Admin Dashboard</h1>
             <p style={{ color: 'var(--text-muted)' }}>Manage your products and orders.</p>
@@ -202,9 +202,9 @@ const Admin = () => {
         </div>
 
         {activeTab === 'products' ? (
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: '48px' }}>
+          <div className="admin-products-grid">
           {/* Add/Edit Product Form */}
-          <div className="admin-card" style={{ padding: '32px', background: 'var(--bg-card)', borderRadius: '12px' }}>
+          <div className="admin-card">
             <h2>{editingId ? 'Edit Product' : 'Add New Product'}</h2>
             <form onSubmit={handleSubmit} style={{ marginTop: '24px' }}>
               <div className="form-group" style={{ marginBottom: '16px' }}>
@@ -261,13 +261,13 @@ const Admin = () => {
           </div>
 
           {/* Product List */}
-          <div className="admin-products" style={{ padding: '32px', background: 'var(--bg-card)', borderRadius: '12px' }}>
+          <div className="admin-products">
             <h2>Current Products</h2>
             <div style={{ marginTop: '24px', overflowX: 'auto' }}>
               {products.length === 0 ? (
                 <p>No products found. Add your first product!</p>
               ) : (
-                <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
+                <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '600px' }}>
                   <thead>
                     <tr style={{ borderBottom: '1px solid var(--border-color)' }}>
                       <th style={{ padding: '12px' }}>Image</th>
@@ -305,7 +305,7 @@ const Admin = () => {
           </div>
         </div>
         ) : (
-          <div className="admin-orders" style={{ padding: '32px', background: 'var(--bg-card)', borderRadius: '12px' }}>
+          <div className="admin-orders">
             <h2>Incoming Orders</h2>
             <div style={{ marginTop: '24px', overflowX: 'auto' }}>
               {orders.length === 0 ? (

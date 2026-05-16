@@ -109,8 +109,8 @@ export default function BrandCardSection({
   const getCardAnimateProps = (i) => {
     if (isMobile) {
       return {
-        opacity: phase >= 2 ? 1 : 0,
-        y: phase >= 2 ? 0 : 40,
+        opacity: 1,
+        y: 0,
         rotateY: flipped[i] ? 180 : 0,
         rotate: 0,
         x: 0,
@@ -162,7 +162,7 @@ export default function BrandCardSection({
   };
 
   const getCardInitialProps = (i) => {
-    if (isMobile) return { opacity: 0, y: 40, rotateY: 0 };
+    if (isMobile) return { opacity: 1, y: 0, rotateY: 0 };
     return {
       opacity: 0,
       x: 0, y: 0, rotate: 0, rotateY: 0,
@@ -180,7 +180,7 @@ export default function BrandCardSection({
 
         {/* Phase 1: LED Screen */}
         <AnimatePresence>
-          {phase < 2 && (
+          {phase < 2 && !isMobile && (
             <motion.div
               key="led-screen"
               className={styles.ledScreen}
@@ -227,9 +227,9 @@ export default function BrandCardSection({
                   <div 
                     className={styles.cardImage} 
                     style={{
-                      backgroundImage: heroImage ? `url(${heroImage})` : 'none',
-                      backgroundPosition: i === 0 ? '0% center' : i === 1 ? '50% center' : '100% center',
-                      backgroundSize: '300% 100%',
+                      backgroundImage: isMobile ? `url(/images/card_mobile_${i + 1}.png)` : (heroImage ? `url(${heroImage})` : 'none'),
+                      backgroundPosition: isMobile ? 'center' : (i === 0 ? '0% center' : i === 1 ? '50% center' : '100% center'),
+                      backgroundSize: isMobile ? 'cover' : '300% 100%',
                       backgroundColor: heroImage ? 'transparent' : '#222'
                     }}
                   />

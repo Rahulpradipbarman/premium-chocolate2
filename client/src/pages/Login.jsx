@@ -7,6 +7,7 @@ import { API_URL } from '../config';
 const Login = () => {
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [error, setError] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
@@ -36,8 +37,9 @@ const Login = () => {
   };
 
   return (
-    <div className="container">
-      <div className="auth-container">
+    <div style={{ paddingTop: '100px', paddingBottom: '40px', minHeight: '80vh' }}>
+      <div className="container">
+        <div className="auth-container">
         <h2 style={{ textAlign: 'center', marginBottom: 'var(--space-4)' }}>Welcome Back</h2>
         {message && <div style={{ color: 'green', marginBottom: 'var(--space-2)' }}>{message}</div>}
         {error && <div style={{ color: 'red', marginBottom: 'var(--space-2)' }}>{error}</div>}
@@ -56,13 +58,23 @@ const Login = () => {
           <div className="form-group">
             <label htmlFor="password">Password</label>
             <input 
-              type="password" 
+              type={showPassword ? "text" : "password"} 
               id="password" 
               name="password" 
               value={formData.password} 
               onChange={handleChange} 
               required 
             />
+            <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-1)', marginTop: '8px' }}>
+              <input 
+                type="checkbox" 
+                id="showPasswordLogin" 
+                checked={showPassword} 
+                onChange={() => setShowPassword(!showPassword)}
+                style={{ width: 'auto' }}
+              />
+              <label htmlFor="showPasswordLogin" style={{ margin: 0, fontSize: '0.85rem' }}>Show Password</label>
+            </div>
           </div>
           <button type="submit" className="btn" style={{ width: '100%', marginTop: 'var(--space-2)' }} disabled={loading}>
             {loading ? 'Logging in...' : 'Log In'}
@@ -71,6 +83,7 @@ const Login = () => {
         <p style={{ textAlign: 'center', marginTop: 'var(--space-4)' }}>
           Don't have an account? <Link to="/signup">Sign up here</Link>.
         </p>
+      </div>
       </div>
     </div>
   );

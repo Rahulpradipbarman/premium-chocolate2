@@ -218,9 +218,9 @@ header:hover {
 }
 
 .auth-container {
-  max-width: 400px;
-  margin: var(--space-8) auto;
-  padding: var(--space-4);
+  max-width: 380px;
+  margin: var(--space-2) auto;
+  padding: var(--space-3);
   background-color: var(--color-surface);
   border-radius: 16px; /* More rounded */
   box-shadow: 0 10px 30px rgba(0,0,0,0.08);
@@ -561,6 +561,25 @@ header:hover {
   padding-top: 120px;
 }
 
+/* Admin Dashboard */
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-align: left;
+}
+.admin-products-grid {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 48px;
+}
+.admin-card, .admin-products, .admin-orders {
+  padding: 32px;
+  background: var(--color-surface);
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+}
+
 /* --- RESPONSIVE OVERRIDES --- */
 .mobile-only {
   display: none !important;
@@ -675,6 +694,77 @@ header:hover {
   .cart-drawer {
     width: 100%;
     right: -100%;
+  }
+
+  .admin-products-grid {
+    grid-template-columns: 320px 600px;
+    gap: 24px;
+    overflow-x: auto;
+    padding-bottom: 16px;
+  }
+  .admin-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  .admin-card, .admin-products, .admin-orders {
+    padding: 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .section {
+    height: auto;
+    padding: 60px 0;
+  }
+  .stickyContainer {
+    position: relative;
+    height: auto;
+    min-height: auto;
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    overflow: visible;
+    gap: 40px;
+  }
+  .sectionHeader {
+    position: relative;
+    top: 0;
+    margin-bottom: 0;
+    font-size: 2.5rem;
+  }
+  .ledScreen {
+    position: relative;
+    top: 0;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    margin: 0;
+  }
+  .cardsContainer {
+    position: relative;
+    flex-direction: column;
+    gap: 20px;
+    height: auto;
+    padding-top: 0;
+  }
+  .cardWrapper {
+    width: 100%;
+    max-width: 320px;
+    height: 360px;
+  }
+}
+
+.product-image-sticky {
+  position: sticky;
+  top: 120px;
+}
+
+@media (max-width: 768px) {
+  .product-image-sticky {
+    position: static !important;
+    top: auto !important;
   }
 }
 

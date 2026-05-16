@@ -48,7 +48,7 @@ const ProductDetails = () => {
         
         <div className="product-details-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '60px', alignItems: 'start' }}>
           {/* Image Gallery */}
-          <div style={{ position: 'sticky', top: '120px' }}>
+          <div className="product-image-sticky">
             <img 
               src={product.image_url || 'https://via.placeholder.com/600'} 
               alt={product.name} 
